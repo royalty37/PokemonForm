@@ -1,22 +1,31 @@
+
+import { useState } from "react";
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [pokemon, setPokemon] = useState("");
+
+  const apiCall = async ( pokemonName ) => {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+    const data = await response.json();
+    console.log(data);
+  }
+
+  const handleSubmit = (e) => {
+    apiCall(pokemon);
+  }
+
   return (
-    <div className="App">
+    <div className="App" id="root">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <form onSubmit={() => handleSubmit()}>
+          <label>
+            <input type="text" placeholder="Pokemon Name" value={pokemon} onChange={(e) => setPokemon(e.target.value)}/>
+          </label>
+          <button type="submit">Submit</button>
+        </form>
       </header>
     </div>
   );
