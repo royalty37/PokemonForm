@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import placeholderPokemonImage from './assets/pokemon.png';
 import './App.css';
@@ -13,6 +12,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
+  // Function to get Pokemon data from API
   const apiCall = async ( pokemonName ) => {
     setIsError(false);
     setIsLoading(true);
@@ -32,6 +32,7 @@ const App = () => {
     setIsLoading(false);
   }
 
+  // Function to format strings returned from API
   const format = (string) => {
     if (string != null) {
       string = string.replace(/-/g,' ');
@@ -45,11 +46,13 @@ const App = () => {
     }
   }
 
+  // Function to handle form submission, prevents page refresh and calls API
   const handleSubmit = (e) => {
     e.preventDefault();
     apiCall(pokemon.toLowerCase());
   }
 
+  // Creates Move List component, passing in abilities array
   const MoveList = () => {
     const listItems = pokemonAbilities.map((ability) =>
       <li key={ability}>{ability}</li>
@@ -63,6 +66,7 @@ const App = () => {
     ) : null;
   }
 
+  // Returns loading screen if isLoading is true, and form if false
   return isLoading ?  (
     <div className="App"> 
       <header className="App-header">
