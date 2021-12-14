@@ -47,7 +47,7 @@ const App = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    apiCall(pokemon);
+    apiCall(pokemon.toLowerCase());
   }
 
   const MoveList = () => {
